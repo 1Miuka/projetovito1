@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Catinder</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="/images/icon.webp" height="40" alt="Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/miau">MIAU</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/addcat">MIAU_ADD</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1 class="text-center">MIAAAU!</h1>
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                Lista de Gatos
+            </a>
+            <th:block th:each="cat : ${cats}">
+                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1" th:text="${cat.nome}"></h5>
+                        <p class="mb-1">Apelido: <span th:text="${cat.apelido}"></span></p>
+                        <small>Idade: <span th:text="${cat.idade}"></span> anos</small>
+                        <br>
+                        <small>Sexo: <span th:text="${cat.sexo}"></span></small>
+                    </div>
+                    <div>
+                        <form th:action="@{'/delete/' + ${cat.id}}" method="post">
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </form>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+
+    <div class="container mt-5" th:if="${systemDown}">
+        <div class="alert alert-danger" role="alert">
+            O sistema está temporariamente fora do ar. miau
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
